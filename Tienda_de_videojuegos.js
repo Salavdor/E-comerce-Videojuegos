@@ -102,6 +102,7 @@ if(acumuladorTotal > 4000){
     alert('Usted tiene un descuento del 15%');
     descuento(acumuladorTotal);
     alert('Su nuevo total es $ '+ totalDescuento);
+    alert('Gracias por su compra');
 }else{
     alert('Gracias por su compra');
 }
