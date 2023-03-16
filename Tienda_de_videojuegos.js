@@ -96,12 +96,12 @@ while(mensajeTienda == 's'){
     mensajeTienda = prompt('Desea comprar otro producto? (s-si / n-no)')
 }
 
-alert('Su compra total es: ' +acumuladorTotal);
+alert('Su compra total es: $ ' +acumuladorTotal);
 
 if(acumuladorTotal > 4000){
     alert('Usted tiene un descuento del 15%');
     descuento(acumuladorTotal);
-    alert('Su nuevo total es $... '+ totalDescuento);
+    alert('Su nuevo total es $ '+ totalDescuento);
 }else{
     alert('Gracias por su compra');
 }
