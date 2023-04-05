@@ -1,13 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Primera pre-entrega</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <title>Tienda de videojuegos</title>
 </head>
+
 <body>
-    <h1>E-comerce Videojuegos</h1>
-    <script src="Tienda_de_videojuegos.js"></script>
+    <h1>E-comerce VIDEOGAMES</h1>
+
+    <div class="container">
+        <h4 id="total">Filtro</h4>
+        <div class="btn-group">
+            <div class="btn-group">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Precio
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button" id="precioBajo">Menos de $500</button></li>
+                    <li><button class="dropdown-item" type="button" id="precioMedio">De $500 a $1000</button></li>
+                    <li><button class="dropdown-item" type="button" id="presioAlto">Más de $1000</button></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    Genero
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button class="dropdown-item" type="button" id="Accion">Accion</button></li>
+                    <li><button class="dropdown-item" type="button" id="Rol">Rol</button></li>
+                    <li><button class="dropdown-item" type="button" id="Terror">Terror</button></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-secondary btn-lg" type="button" id="todo">
+                    Todo
+                </button>
+            </div>
+        </div>
+
+        <div class="text-bg-light p-3 listaProd">
+            <h4>Carrito</h4>
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Titulo</th>
+                        <th>Plataforma</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="tablabody">
+                    <!-- carrito -->
+                </tbody>
+            </table>
+            <h4 id="total">Total: </h4>
+        </div>
+        <div class="contenedorProductos my-4">
+            <h4>Resultados</h4>
+        </div>
+    </div>
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+     <script src="Tienda_de_videojuegos.js"></script>
 </body>
+
 </html>
