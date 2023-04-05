@@ -2,107 +2,125 @@
 
 // ============================= OBJETOS ============================
 
-// Objeto Videojuego
+//array de objetos literales
+const Videojuegos = [{ id: 1,  titulo: "MAD MAX", plataforma:'PS4', clasificacion:'Adultos (Mayor de 18 años)', genero:'Accion',precio: 490, img: 'https://cdn.gameplanet.com/wp-content/uploads/2022/08/27023704/mad-max_5-1-510x630.jpg'},
+                  {  id: 2,  titulo: "GOD OF WAR RAGNAROK", plataforma:'PS4', clasificacion:'Adultos (Mayor de 18 años)', genero:'Accion',precio: 1200.99,img: 'https://cdn.gameplanet.com/wp-content/uploads/2022/11/10112031/711719548171-ragnarok5ps5-2-510x651.jpg' },
+                  {  id: 3,  titulo: "HOGWARTS LEGACY", plataforma:'PS5', clasificacion:'B15 (Mayor de 15 años)', genero:'Rol',precio: 709.71, img: 'https://cdn.gameplanet.com/wp-content/uploads/2023/02/09192657/883929730797-portada-hogwarts-legacy-ps5-510x630.jpg' },
+                  {  id: 4,  titulo: "ELDEN RING", plataforma:'PS5', clasificacion:'Adultos (Mayor de 18 años)', genero:'Rol',precio: 1399.99, img: 'https://cdn.gameplanet.com/wp-content/uploads/2022/09/05000411/elden_ps5_1_1-510x630.jpg' },
+                  {  id: 5,  titulo: "DEAD SPACE REMAKE", plataforma:'PS5', clasificacion:'Adultos (Mayor de 18 años)', genero:'Terror',precio: 999.99, img: 'https://cdn.gameplanet.com/wp-content/uploads/2023/01/27120802/014633381085-dead-space-ps5-1-510x630.jpg' },
+                  {  id: 6,  titulo: "THE CALLISTO PROTOCOL", plataforma:'PS5', clasificacion:'Adultos (Mayor de 18 años)', genero:'Terror',precio: 1549.99, img: 'https://cdn.gameplanet.com/wp-content/uploads/2023/01/06152446/811949034458-The-Callisto-Protocol-PS5-510x630.jpg' }
+                  ];
 
-function Videojuego(titulo, plataforma, clasificacion, genero, precio){
-    this.titulo = titulo;
-    this.plataforma = plataforma;
-    this.clasificacion = clasificacion;
-    this.genero = genero;
-    this.precio = precio;
-    // metodo
-    this.mostrarVideojuego = function(){
-        let mostrar = '=================\n'+this.titulo + '\nPlataforma: ' +this.plataforma+ ' Clasificación: ' +this.clasificacion+ ' Genero: ' +this.genero+ '\n$...' +this.precio+ '\n=================';
-        return mostrar;
+//Mostrar videojuegos en cartas
+
+const loadObjects = (Videojuegos) =>
+{
+    // Revisa el estado del contenedor de cartas para borrar los resultados si es necesario
+    let container = document.querySelector('.contenedorProductos');
+
+    let cardsContainer = document.querySelector("#cardsContainer");
+    
+    if(cardsContainer)
+    {
+        cardsContainer.parentNode.removeChild(cardsContainer);
     }
+
+    // construye las cartas con los productos nuevos 
+    let div = document.createElement('div');
+    div.setAttribute('id','cardsContainer');
+    div.classList.add('row');
+
+    for (const producto of Videojuegos)
+    {
+        div.innerHTML += `
+        <div class="card col-6 col-md-4 col-lg-3">
+        <img src="${producto.img}" class="card-img-top" alt="${producto.titulo}">
+        <div class="card-body">
+            <h5 class="card-title">${producto.titulo}</h5>
+            <p class="card-text">${producto.plataforma}</p>
+            <p class="card-text">${producto.genero}</p>
+            <p class="card-text">${producto.clasificacion}</p>
+            <p class="card-text">$ ${producto.precio}</p>
+            <button id='${producto.id}' href="#" class="btn btn-primary comprar" value="${producto.precio}">Comprar</button>
+        </div>
+        </div>
+        `;
+    }
+    container.appendChild(div);
+
+    Videojuegos.forEach((btn)=>{
+        document.getElementById(`${btn.id}`).addEventListener('click',()=>{
+            agregaCarrito(btn);
+    });
+    });
 }
 
-// ACCIÓN
-const accion1= new Videojuego('MAD MAX','PS4','Adultos (Mayor de 18 años)','Accion',500);
-const accion2= new Videojuego('GOD OF WAR RAGNAROK','PS4','Adultos (Mayor de 18 años)','Accion',1399.99);
+loadObjects(Videojuegos);
 
-// ROL
-const rol1= new Videojuego('HOGWARTS LEGACY','PS5','B15 (Mayor de 15 años)','Rol',1709.71);
-const rol2= new Videojuego('ELDEN RING','PS5','Adultos (Mayor de 18 años)','Rol',1399.99);
+let precioBajo = document.querySelector('#precioBajo');
+let precioMedio = document.querySelector('#precioMedio');
+let presioAlto = document.querySelector('#presioAlto');
+let Accion = document.querySelector('#Accion');
+let Rol = document.querySelector('#Rol');
+let Terror = document.querySelector('#Terror');
+let todo = document.querySelector('#todo');
 
-// TERROR
-const terror1= new Videojuego('DEAD SPACE REMAKE','PS5','Adultos (Mayor de 18 años)','Terror',1399.99);
-const terror2= new Videojuego('THE CALLISTO PROTOCOL','PS5','Adultos (Mayor de 18 años)','Terror',1549.99);
+precioBajo.addEventListener('click',()=>{
+    let filtroVideojuego = Videojuegos.filter(element => element.precio < 500);
+    loadObjects(filtroVideojuego);
+});
 
+precioMedio.addEventListener('click',()=>{
+    let filtroVideojuego = Videojuegos.filter(element => element.precio >= 500 && element.precio < 1000);
+    loadObjects(filtroVideojuego);
+});
 
-// ============================= METODOS ============================
+presioAlto.addEventListener('click',()=>{
+    let filtroVideojuego = Videojuegos.filter(element => element.precio > 1000);
+    loadObjects(filtroVideojuego);
+});
 
-// ACUMULADOR
+Accion.addEventListener('click',()=>{
+    let filtroVideojuego = Videojuegos.filter(element => element.genero == 'Accion' );
+    loadObjects(filtroVideojuego);
+});
 
-let acumuladorTotal = 0;
+Rol.addEventListener('click',()=>{
+    let filtroVideojuego = Videojuegos.filter(element => element.genero == 'Rol' );
+    loadObjects(filtroVideojuego);
+});
 
-function sumaAcumulador(precioVideojuego) {
-    precioVideojuego = parseFloat(precioVideojuego);
-    acumuladorTotal = acumuladorTotal + precioVideojuego;
-    return acumuladorTotal;
-}
+Terror.addEventListener('click',()=>{
+    let filtroVideojuego = Videojuegos.filter(element => element.genero == 'Terror' );
+    loadObjects(filtroVideojuego);
+});
 
-// DESCUENTOS
-
-let totalDescuento = 0;
-
-function descuento(descuento){
-    totalDescuento = descuento - (descuento * 0.15);
-    return totalDescuento;
-}
-
-// ============================= CICLO DE COMPRA ============================
-
-let mensajeTienda = prompt('Desea comprar un producto? (s-si / n-no)')
-while(mensajeTienda == 's'){
-
-    let producto = prompt('TECLEA EL NÚMERO DE LA OPCION DEL PRODUCTO PARA AGREGAR AL CARRITO\n'+
-    '=================\n'+
-    'Opcion 1 \n'+accion1.mostrarVideojuego() + '\n'+
-    'Opcion 2 \n'+accion2.mostrarVideojuego() + '\n'+
-    'Opcion 3 \n'+rol1.mostrarVideojuego() + '\n'+
-    'Opcion 4 \n'+rol2.mostrarVideojuego() + '\n'+
-    'Opcion 5 \n'+terror1.mostrarVideojuego() + '\n'+
-    'Opcion 6 \n'+terror2.mostrarVideojuego() );
+todo.addEventListener('click',()=>{
+    loadObjects(Videojuegos);
+});
 
 
-    if(producto == '1' ){
-        alert(accion1.titulo + '\n$...' + accion1.precio+ '\nAGREGADO AL CARRO!');
-        sumaAcumulador(accion1.precio);
-    }
-    else if(producto == '2' ){
-        alert(accion2.titulo + '\n$...' + accion2.precio+ '\nAGREGADO AL CARRO!');
-        sumaAcumulador(accion2.precio);
-    }
-    else if(producto == '3' ){
-        alert(rol1.titulo + '\n$...' + rol1.precio+ '\nAGREGADO AL CARRO!');
-        sumaAcumulador(rol1.precio);
-    }
-    else if(producto == '4' ){
-        alert(rol2.titulo + '\n$...' + rol2.precio+ '\nAGREGADO AL CARRO!');
-        sumaAcumulador(rol2.precio);
-    }
-    else if(producto == '5' ){
-        alert(terror1.titulo + '\n$...' + terror1.precio+ '\nAGREGADO AL CARRO!');
-        sumaAcumulador(terror1.precio);
-    }
-    else if(producto == '6' ){
-        alert(terror2.titulo + '\n$...' + terror2.precio+ '\nAGREGADO AL CARRO!');
-        sumaAcumulador(terror2.precio);
-    }
-    else{
-        alert('Codigo de producto inexistente');
-    }
-    mensajeTienda = prompt('Desea comprar otro producto? (s-si / n-no)')
-}
+// Carrito
 
-alert('Su compra total es: $ ' +acumuladorTotal);
+const sumaCompras = [];
 
-if(acumuladorTotal > 4000){
-    alert('Usted tiene un descuento del 15%');
-    descuento(acumuladorTotal);
-    alert('Su nuevo total es $ '+ totalDescuento);
-    alert('Gracias por su compra');
-}else{
-    alert('Gracias por su compra');
+console.table(Videojuegos);
+
+let contenedor = document.getElementById("misprods");
+
+function agregaCarrito(videojuegoAgregado){
+    sumaCompras.push(videojuegoAgregado);
+    alert(`Agregaste ${videojuegoAgregado.titulo} al carrito!`);
+    
+    document.getElementById('tablabody').innerHTML += `
+        <tr>
+            <td>${videojuegoAgregado.id}</td>
+            <td>${videojuegoAgregado.titulo}</td>
+            <td>${videojuegoAgregado.plataforma}</td>
+            <td>${videojuegoAgregado.precio}</td>
+        </tr>
+    `;
+  
+    let totalCompra = sumaCompras.reduce((acumulador,videojuego)=>acumulador+videojuego.precio,0);
+    document.getElementById('total').innerText = 'Total: $'+totalCompra;
 }
